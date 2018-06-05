@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>input-pwd</title>
+  <style>
+    .panel {
+      text-align: center;
+    }
+
+    .pwd {
+      position: relative;
+    }
+
+    .pwd-input {
+      opacity: 0;
+    }
+
+    .panel-pwd {
+      transition: translateY(20px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .show-input input {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
+
+    .btn .show-btn {
+      width: 40vw;
+      height: 4vh;
+      outline: 0;
+      border: 1px solid #eee;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="panel">
+    <h3>请输入密码：</h3>
+    <div class="pwd">
+      <div class="panel-pwd">
+        <input class="pwd-input" type="number" placeholder="请输入6位密码" maxlength="6" oninput='yourInput()' autofocus='true'>
+      </div>
+      <div class="show-input">
+        <input type="password" maxlength="1" disable>
+        <input type="password" maxlength="1" disable>
+        <input type="password" maxlength="1" disable>
+        <input type="password" maxlength="1" disable>
+        <input type="password" maxlength="1" disable>
+        <input type="password" maxlength="1" disable>
+      </div>
+    </div>
+    <div class="btn">
+      <button class="show-btn" onclick="seePwd()">查看密码</button>
+    </div>
+    <div class="show-panel"></div>
+  </div>
+  <script>
+    var pwdInput = document.getElementsByClassName('pwd-input')[0];
+    var showInput = document.getElementsByClassName('show-input')[0];
+    var inputBox = showInput.getElementsByTagName('input')
+    console.log(inputBox)
+    //输入监听并显示值
+    function yourInput() {
+      var input_str = pwdInput.value
+      for (var i = 0; i < inputBox.length; i++) {
+        inputBox[i].value = input_str[i] ? input_str[i] : ""
+      }
+      console.log(showInput.childNodes)
+      console.log(pwdInput.value)
+    }
+    //点击查看密码
+    function seePwd() {
+      var input_str = pwdInput.value
+      var showPanel = document.getElementsByClassName('show-panel')[0]
+      if (input_str.length < 6) {
+        confirm('请输入6位密码！')
+      } else {
+        showPanel.innerHTML = pwdInput.value.substring(0, 6);
+      }
+    }
+  </script>
+</body>
+
+</html>
